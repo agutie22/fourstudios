@@ -127,7 +127,7 @@ const Pricing = () => {
                         Simple, Transparent <span className="text-white">Pricing</span>
                     </h3>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
-                        One-time build fees. You own the code. You own the platform.
+                        Built <span className="text-blood-red font-bold font-oswald">FOUR</span> keeps. You own the code. You own the platform.
                     </p>
                 </div>
 

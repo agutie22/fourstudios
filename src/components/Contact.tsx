@@ -9,10 +9,10 @@ const Contact = () => {
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h2 className="text-4xl md:text-7xl font-bold text-white mb-6 font-oswald uppercase tracking-tighter leading-none animate-pulse-slow">
-                    Ready to <span className="text-blood-red shadow-[0_0_20px_rgba(138,3,3,0.4)]">Upgrade?</span>
+                    Ready <span className="text-blood-red drop-shadow-[0_0_20px_rgba(138,3,3,0.5)]">Four</span> More?
                 </h2>
                 <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light">
-                    Stop relying on rented land. Own your platform, own your client list, and own your future.
+                    We go the extra mile — because we build <span className="text-blood-red font-bold font-oswald">FOUR</span> people, not platforms.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

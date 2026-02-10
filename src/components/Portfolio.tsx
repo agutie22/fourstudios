@@ -32,7 +32,7 @@ const Portfolio = () => {
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                     <div>
                         <h2 className="text-sm font-bold text-blood-red tracking-[0.2em] uppercase mb-3 font-oswald">Our Work</h2>
-                        <h3 className="text-3xl md:text-5xl font-bold text-white font-oswald uppercase tracking-tight">Results <span className="text-gray-600">Speak</span></h3>
+                        <h3 className="text-3xl md:text-5xl font-bold text-white font-oswald uppercase tracking-tight">Results Speak <span className="text-blood-red drop-shadow-[0_0_10px_rgba(138,3,3,0.5)]">Four</span> <span className="text-gray-600">Themselves</span></h3>
                     </div>
                     <button className="text-white hover:text-blood-red transition-colors font-oswald uppercase tracking-widest text-sm flex items-center gap-2 group">
                         View Full Portfolio <ArrowUpRight className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
