@@ -1,6 +1,24 @@
 import { Mail, MessageSquare } from 'lucide-react';
+import { useCallback } from 'react';
 
-const Contact = () => {
+
+interface ContactProps {
+    onOpenProjectForm: () => void;
+}
+
+const Contact = ({ onOpenProjectForm }: ContactProps) => {
+
+    // Anti-scraping: email is split into parts and assembled at runtime
+    const getEmail = useCallback(() => {
+        const parts = ['mralxgut', '@', 'gmail', '.', 'com'];
+        return parts.join('');
+    }, []);
+
+    const handleEmail = useCallback((subject: string) => {
+        const email = getEmail();
+        window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+    }, [getEmail]);
+
     return (
         <section id="contact" className="py-24 bg-transparent relative overflow-hidden backdrop-blur-sm">
 
@@ -9,27 +27,50 @@ const Contact = () => {
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <h2 className="text-4xl md:text-7xl font-bold text-white mb-6 font-oswald uppercase tracking-tighter leading-none animate-pulse-slow">
-                    Ready <span className="text-blood-red drop-shadow-[0_0_20px_rgba(138,3,3,0.5)]">Four</span> More?
+                    Ready <span className="text-blood-red drop-shadow-[0_0_20px_rgba(138,3,3,0.5)]">4</span> More?
                 </h2>
                 <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto font-light">
-                    We go the extra mile — because we build <span className="text-blood-red font-bold font-oswald">FOUR</span> people, not platforms.
+                    We go the extra mile — because we build <span className="text-blood-red font-bold font-oswald">4</span> people, not platforms.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                    <button className="w-full sm:w-auto px-8 py-4 bg-blood-red text-white font-bold rounded-sm hover:bg-red-900 border border-blood-red hover:shadow-[0_0_30px_rgba(138,3,3,0.5)] transition-all duration-300 flex items-center justify-center gap-3 font-oswald uppercase tracking-widest group">
+                    <button
+                        onClick={onOpenProjectForm}
+                        className="w-full sm:w-auto px-8 py-4 bg-blood-red text-white font-bold rounded-sm hover:bg-red-900 border border-blood-red hover:shadow-[0_0_30px_rgba(138,3,3,0.5)] transition-all duration-300 flex items-center justify-center gap-3 font-oswald uppercase tracking-widest group"
+                    >
                         <MessageSquare className="w-5 h-5 group-hover:animate-bounce" />
                         Start Your Project
                     </button>
-                    <button className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/10 text-white font-medium rounded-sm hover:border-blood-red hover:bg-blood-red/5 transition-all duration-300 flex items-center justify-center gap-3 font-oswald uppercase tracking-widest group">
+                    <button
+                        onClick={() => handleEmail('Sales Inquiry')}
+                        className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/10 text-white font-medium rounded-sm hover:border-blood-red hover:bg-blood-red/5 transition-all duration-300 flex items-center justify-center gap-3 font-oswald uppercase tracking-widest group"
+                    >
                         <Mail className="w-5 h-5 group-hover:animate-ping" />
                         Contact Sales
                     </button>
                 </div>
 
-                <p className="mt-8 text-sm text-red-900/60 font-medium font-oswald uppercase tracking-wider">
+                {/* Email display — obfuscated in source, assembled at runtime */}
+                <p className="mt-8 text-sm text-gray-600 font-mono">
+                    <button
+                        onClick={() => handleEmail('Hello from fourstudios.com')}
+                        className="hover:text-blood-red transition-colors duration-300 cursor-pointer"
+                        aria-label="Send email"
+                    >
+                        <span>mralxgut</span>
+                        <span className="select-none" aria-hidden="true">{'@'}</span>
+                        <span>gmail</span>
+                        <span>.</span>
+                        <span>com</span>
+                    </button>
+                </p>
+
+                <p className="mt-3 text-sm text-red-900/60 font-medium font-oswald uppercase tracking-wider">
                     Limited spots available for this month.
                 </p>
             </div>
+
+            {/* Project Form Modal - Moved to App.tsx */}
 
             {/* Footer */}
             <div className="mt-24 border-t border-white/5 pt-12 bg-black/80 backdrop-blur-sm relative z-10">
@@ -48,3 +89,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

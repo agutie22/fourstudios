@@ -1,11 +1,21 @@
+import { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Portfolio from './components/Portfolio';
 import Pricing from './components/Pricing';
 import Contact from './components/Contact';
 import MatrixBackground from './components/MatrixBackground';
+import ProjectForm from './components/ProjectForm';
 
 function App() {
+  const [isProjectFormOpen, setIsProjectFormOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState('');
+
+  const handleOpenProjectForm = (pkg: string = '') => {
+    setSelectedPackage(pkg);
+    setIsProjectFormOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-vampire-black text-white font-sans selection:bg-blood-red selection:text-white relative">
       <div className="fixed inset-0 z-0">
@@ -15,9 +25,14 @@ function App() {
         <Navbar />
         <Hero />
         <Portfolio />
-        <Pricing />
-        <Contact />
+        <Pricing onOpenProjectForm={handleOpenProjectForm} />
+        <Contact onOpenProjectForm={() => handleOpenProjectForm()} />
       </div>
+      <ProjectForm
+        isOpen={isProjectFormOpen}
+        onClose={() => setIsProjectFormOpen(false)}
+        initialPackage={selectedPackage}
+      />
     </div>
   );
 }

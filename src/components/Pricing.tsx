@@ -107,7 +107,11 @@ const supportPacks = [
     { name: 'Scale Support', price: '$600', hours: '12 hours', features: ['Employee Onboarding', 'Complex Flows'] },
 ];
 
-const Pricing = () => {
+interface PricingProps {
+    onOpenProjectForm: (pkg: string) => void;
+}
+
+const Pricing = ({ onOpenProjectForm }: PricingProps) => {
     const [showCompare, setShowCompare] = useState(false);
 
     return (
@@ -127,7 +131,7 @@ const Pricing = () => {
                         Simple, Transparent <span className="text-white">Pricing</span>
                     </h3>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
-                        Built <span className="text-blood-red font-bold font-oswald">FOUR</span> keeps. You own the code. You own the platform.
+                        Built <span className="text-blood-red font-bold font-oswald">4</span> owners. You own the code. You own the platform.
                     </p>
                 </div>
 
@@ -136,37 +140,40 @@ const Pricing = () => {
                     {tiers.map((tier, index) => (
                         <div
                             key={index}
-                            className={`relative group flex flex-col p-8 transition-all duration-300 rounded-sm border backdrop-blur-sm ${tier.highlight ? 'bg-neutral-900 border-blood-red/60 shadow-[0_0_40px_rgba(138,3,3,0.15)] scale-105 z-10' : 'bg-neutral-900/50 border-white/10 hover:border-blood-red/40 hover:-translate-y-1'}`}
+                            className={`relative group flex flex-col p-5 md:p-8 transition-all duration-300 rounded-sm border backdrop-blur-sm ${tier.highlight ? 'bg-neutral-900 border-blood-red/60 shadow-[0_0_40px_rgba(138,3,3,0.15)] scale-[1.02] md:scale-105 z-10' : 'bg-neutral-900/50 border-white/10 hover:border-blood-red/40 hover:-translate-y-1'}`}
                         >
                             {tier.highlight && (
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blood-red text-white text-[10px] font-bold px-4 py-1 uppercase tracking-widest font-oswald rounded-sm shadow-lg">
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blood-red text-white text-[10px] font-bold px-4 py-1 uppercase tracking-widest font-oswald rounded-sm shadow-lg w-max">
                                     Most Popular
                                 </div>
                             )}
 
-                            <div className="mb-8 text-center border-b border-white/5 pb-8">
-                                <span className="text-xs font-bold text-blood-red uppercase tracking-widest font-oswald block mb-2">{tier.audience}</span>
-                                <h4 className="text-2xl font-bold font-oswald uppercase tracking-wide text-white mb-2">{tier.name}</h4>
-                                <p className="text-3xl font-bold text-gray-200 font-oswald tracking-tight">{tier.price}</p>
+                            <div className="mb-4 md:mb-8 text-center border-b border-white/5 pb-4 md:pb-8">
+                                <span className="text-[10px] md:text-xs font-bold text-blood-red uppercase tracking-widest font-oswald block mb-1 md:mb-2">{tier.audience}</span>
+                                <h4 className="text-xl md:text-2xl font-bold font-oswald uppercase tracking-wide text-white mb-1 md:mb-2">{tier.name}</h4>
+                                <p className="text-2xl md:text-3xl font-bold text-gray-200 font-oswald tracking-tight">{tier.price}</p>
                                 <p className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Starting Range: {tier.range}</p>
                             </div>
 
-                            <div className="space-y-4 mb-8 flex-grow">
+                            <div className="space-y-2 md:space-y-4 mb-6 md:mb-8 flex-grow">
                                 {tier.features.map((feat, i) => (
-                                    <div key={i} className="flex items-start gap-3">
-                                        <Check className="w-4 h-4 text-blood-red mt-1 shrink-0" />
-                                        <span className="text-gray-400 text-sm font-light">{feat}</span>
+                                    <div key={i} className="flex items-start gap-2 md:gap-3">
+                                        <Check className="w-3 h-3 md:w-4 md:h-4 text-blood-red mt-1 shrink-0" />
+                                        <span className="text-gray-400 text-xs md:text-sm font-light leading-tight">{feat}</span>
                                     </div>
                                 ))}
                             </div>
 
                             <div className="mt-auto">
-                                <div className="flex items-center justify-center gap-2 mb-6 text-[10px] text-gray-500 uppercase tracking-wider border p-2 border-white/5 rounded-sm bg-white/5">
+                                <div className="flex items-center justify-center gap-2 mb-4 md:mb-6 text-[10px] text-gray-500 uppercase tracking-wider border p-2 border-white/5 rounded-sm bg-white/5">
                                     <Clock className="w-3 h-3" />
                                     {tier.revisions}
                                 </div>
 
-                                <button className={`w-full py-4 px-6 font-bold uppercase tracking-widest text-sm transition-all duration-300 border rounded-sm font-oswald ${tier.highlight ? 'bg-blood-red border-blood-red text-white hover:bg-red-900 hover:shadow-[0_0_20px_rgba(138,3,3,0.4)]' : 'bg-transparent border-white/20 text-white hover:border-blood-red hover:bg-blood-red/10'}`}>
+                                <button
+                                    onClick={() => onOpenProjectForm(tier.name)}
+                                    className={`w-full py-3 md:py-4 px-6 font-bold uppercase tracking-widest text-xs md:text-sm transition-all duration-300 border rounded-sm font-oswald ${tier.highlight ? 'bg-blood-red border-blood-red text-white hover:bg-red-900 hover:shadow-[0_0_20px_rgba(138,3,3,0.4)]' : 'bg-transparent border-white/20 text-white hover:border-blood-red hover:bg-blood-red/10'}`}
+                                >
                                     {tier.cta}
                                 </button>
                             </div>
@@ -197,7 +204,49 @@ const Pricing = () => {
                             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                             className="overflow-hidden mb-32 max-w-7xl mx-auto"
                         >
-                            <div className="overflow-x-auto pb-4 custom-scrollbar">
+                            <div className="md:hidden space-y-8">
+                                {[
+                                    { label: 'Pages Included', key: 'pages' },
+                                    { label: 'Staff Profiles', key: 'staff' },
+                                    { label: 'Booking System', key: 'booking' },
+                                    { label: 'Design Level', key: 'design' },
+                                    { label: 'Analytics', key: 'analytics' },
+                                    { label: 'Revisions', key: 'revisions' },
+                                ].map((row, rowIdx) => (
+                                    <div key={rowIdx} className="bg-neutral-900/50 border border-white/10 rounded-sm overflow-hidden">
+                                        <div className="p-4 bg-vampire-black border-b border-white/10">
+                                            <h4 className="text-white font-bold font-oswald uppercase tracking-widest text-sm">{row.label}</h4>
+                                        </div>
+                                        <div className="divide-y divide-white/5">
+                                            {tiers.map((tier, i) => {
+                                                const val = row.key === 'revisions' ? tier.revisions : tier[row.key as keyof typeof tier];
+                                                let content;
+
+                                                if (typeof val === 'boolean') {
+                                                    content = val ? <Check className="w-4 h-4 text-blood-red" /> : <Minus className="w-4 h-4 text-gray-800" />;
+                                                } else {
+                                                    const strVal = String(val);
+                                                    const lower = strVal.toLowerCase();
+                                                    if (['bespoke', 'dashboard', 'unlimited', 'complex', '6-10', '4-6', 'full system'].some(k => lower.includes(k))) {
+                                                        content = <span className="text-blood-red font-bold font-oswald uppercase tracking-wide text-xs">{strVal}</span>;
+                                                    } else {
+                                                        content = <span className="text-gray-400 text-sm">{strVal}</span>;
+                                                    }
+                                                }
+
+                                                return (
+                                                    <div key={i} className={`p-4 flex justify-between items-center ${tier.highlight ? 'bg-blood-red/5' : ''}`}>
+                                                        <span className={`text-xs font-bold uppercase tracking-wider ${tier.highlight ? 'text-white' : 'text-gray-500'}`}>{tier.name}</span>
+                                                        {content}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div className="hidden md:block overflow-x-auto pb-4 custom-scrollbar">
                                 <table className="w-full text-left border-collapse min-w-[800px]">
                                     <thead>
                                         <tr>
